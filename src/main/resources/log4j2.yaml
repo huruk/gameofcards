@@ -1,0 +1,21 @@
+Configuration:
+  status: warn
+
+  appenders:
+    Console:
+      name: LogToConsole
+      PatternLayout:
+        DisableAnsi: false
+        Pattern: "%highlight{%d [%t] %-5level: %msg%n%throwable}"
+  Loggers:
+    logger:
+      - name: com.drailan
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: LogToConsole
+
+    Root:
+      level: info
+      AppenderRef:
+        ref: LogToConsole
