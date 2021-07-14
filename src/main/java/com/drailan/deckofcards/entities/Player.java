@@ -10,4 +10,8 @@ import java.util.UUID;
 public class Player {
     private final UUID id = UUID.randomUUID();
     private final List<Card> cards = new ArrayList<>();
+
+    public int getTotalCardValue() {
+        return cards.stream().map(Card::getValue).reduce(0, Integer::sum);
+    }
 }

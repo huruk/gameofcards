@@ -10,7 +10,6 @@ import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,17 +18,21 @@ import java.util.UUID;
 @Service
 public class PlayerService implements IPlayerService {
     private final IGameService gameService;
-    private final List<Player> players = new ArrayList<>();
 
     @Override
-    public List<Player> getPlayers() {
-        return players;
+    public List<Player> getPlayers(UUID gameId) {
+        return gameService.getGame(gameId).getPlayers();
     }
 
     @SneakyThrows
     @Override
-    public Player getPlayer(UUID playerId) {
-        return players.stream().filter(g -> g.getId() == playerId).findFirst().orElseThrow(() -> new EntityNotFoundException("Player not found"));
+    public Player getPlayer(UUID gameId, UUID playerId) {
+        return gameService.getGame(gameId)
+                .getPlayers()
+                .stream()
+                .filter(g -> g.getId().equals(playerId))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Player not found"));
     }
 
     @Override
@@ -38,32 +41,33 @@ public class PlayerService implements IPlayerService {
         var player = new Player();
         game.getPlayers().add(player);
 
+        log.debug("Added player {} to game {}", player.getId(), gameId);
         return player.getId();
     }
 
     @SneakyThrows
     @Override
     public boolean removePlayer(UUID gameId, UUID playerId) {
-        var player = players.stream()
-                .filter(g -> g.getId().equals(gameId))
-                .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException("Player not found"));
+        var player = getPlayer(gameId, playerId);
 
-        return players.remove(player);
+        log.debug("Removing player {} from game {}", playerId, gameId);
+        return gameService.getGame(gameId).getPlayers().remove(player);
     }
 
     @Override
     public Card dealCards(UUID gameId, UUID playerId, int numberOfCards) {
         var deck = gameService.getGame(gameId).getDeck();
-        if(deck.isEmpty()) {
+        if (deck.isEmpty()) {
+            log.warn("Deck of game {} is empty", gameId);
             return null;
         }
 
-        var targetCard = gameService.getGame(gameId).getDeck().remove(0);
+        var targetCard = deck.remove(0);
 
-        var targetPlayer = getPlayer(playerId);
+        var targetPlayer = getPlayer(gameId, playerId);
         targetPlayer.getCards().add(targetCard);
 
+        log.debug("Retrieved card {} belonging to deck {} and added it to player {}", targetCard, targetCard.getDeckId(), targetPlayer.getId());
         return targetCard;
     }
 }

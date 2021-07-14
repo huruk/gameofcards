@@ -25,6 +25,7 @@ public class GameService implements IGameService {
         var game = new Game();
         games.add(game);
 
+        log.debug("Created game with {}", game.getId());
         return game.getId();
     }
 
@@ -37,6 +38,7 @@ public class GameService implements IGameService {
     public boolean deleteGame(UUID gameId) {
         var game = getGame(gameId);
 
+        log.debug("Deleting game {}", gameId);
         return games.remove(game);
     }
 
@@ -54,6 +56,12 @@ public class GameService implements IGameService {
         var deck = deckService.getDeck(deckId);
         var game = getGame(gameId);
 
+        var gameDeck = game.getDeck();
+        if (gameDeck.stream().anyMatch(card -> card.getDeckId().equals(deckId))) {
+            throw new IllegalStateException(String.format("Cannot add cards of a deck %s that has already been added to the game", deckId));
+        }
+
+        log.debug("Adding deck {} contents to game {}", deckId, gameId);
         game.getDeck().addAll(deck.getCards());
     }
 }

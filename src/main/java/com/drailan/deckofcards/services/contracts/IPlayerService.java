@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IPlayerService {
-    List<Player> getPlayers();
+    List<Player> getPlayers(UUID gameId);
 
-    Player getPlayer(UUID playerId);
+    Player getPlayer(UUID gameId, UUID playerId);
 
     UUID addPlayer(UUID gameId);
 
