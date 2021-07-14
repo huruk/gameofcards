@@ -72,9 +72,9 @@ public class PlayerController {
 
     @PostMapping("{playerId}/deal")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Card> dealCardsToPlayer(@PathVariable UUID gameId, @PathVariable UUID playerId, @RequestBody @Valid DealCardsRequest req) {
-        var dealtCard =  playerService.dealCards(gameId, playerId, req.getNumberOfCards());
+    public ResponseEntity dealCardsToPlayer(@PathVariable UUID gameId, @PathVariable UUID playerId, @RequestBody @Valid DealCardsRequest req) {
+        playerService.dealCards(gameId, playerId, req.getNumberOfCards());
 
-        return ResponseEntity.ok(dealtCard);
+        return ResponseEntity.ok().build();
     }
 }

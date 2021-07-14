@@ -20,13 +20,11 @@ public class DeckResponse {
     }
 
     public Map<Suit, NavigableMap<Card, Long>> getUndealtCardsPerSuiteAndFaceValue() {
-        var initialMap = cards
+        return cards
                 .stream()
                 .collect(Collectors.groupingBy(
                         Card::getSuit,
                         Collectors.groupingBy(c -> c, () -> new TreeMap<Card, Long>().descendingMap(), Collectors.counting())
                 ));
-
-        return initialMap;
     }
 }

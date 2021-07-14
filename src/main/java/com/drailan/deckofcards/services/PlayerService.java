@@ -1,6 +1,5 @@
 package com.drailan.deckofcards.services;
 
-import com.drailan.deckofcards.entities.Card;
 import com.drailan.deckofcards.entities.Player;
 import com.drailan.deckofcards.exceptions.EntityNotFoundException;
 import com.drailan.deckofcards.services.contracts.IGameService;
@@ -55,19 +54,19 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public Card dealCards(UUID gameId, UUID playerId, int numberOfCards) {
+    public void dealCards(UUID gameId, UUID playerId, int numberOfCards) {
         var deck = gameService.getGame(gameId).getDeck();
         if (deck.isEmpty()) {
             log.warn("Deck of game {} is empty", gameId);
-            return null;
+            return;
         }
 
-        var targetCard = deck.remove(0);
+        var targetCards = deck.subList(0, numberOfCards);
 
         var targetPlayer = getPlayer(gameId, playerId);
-        targetPlayer.getCards().add(targetCard);
+        targetPlayer.getCards().addAll(targetCards);
+        targetCards.clear();
 
-        log.debug("Retrieved card {} belonging to deck {} and added it to player {}", targetCard, targetCard.getDeckId(), targetPlayer.getId());
-        return targetCard;
+        log.debug("Retrieved cards {} added it to player {}", numberOfCards, targetPlayer.getId());
     }
 }

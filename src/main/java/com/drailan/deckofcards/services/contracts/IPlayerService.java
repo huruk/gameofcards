@@ -1,6 +1,5 @@
 package com.drailan.deckofcards.services.contracts;
 
-import com.drailan.deckofcards.entities.Card;
 import com.drailan.deckofcards.entities.Player;
 
 import java.util.List;
@@ -15,5 +14,5 @@ public interface IPlayerService {
 
     boolean removePlayer(UUID gameId, UUID playerId);
 
-    Card dealCards(UUID gameId, UUID playerId, int numberOfCards);
+    void dealCards(UUID gameId, UUID playerId, int numberOfCards);
 }
