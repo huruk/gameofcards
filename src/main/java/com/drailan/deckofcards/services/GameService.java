@@ -1,5 +1,6 @@
 package com.drailan.deckofcards.services;
 
+import com.drailan.deckofcards.entities.Card;
 import com.drailan.deckofcards.entities.Game;
 import com.drailan.deckofcards.exceptions.EntityNotFoundException;
 import com.drailan.deckofcards.services.contracts.IDeckService;
@@ -9,16 +10,15 @@ import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Log4j2
 @RequiredArgsConstructor
 @Service
 public class GameService implements IGameService {
     private final IDeckService deckService;
-    private final List<Game> games = new ArrayList<>();
+    private final List<Game> games = new LinkedList<>();
 
     @Override
     public UUID createGame() {
@@ -63,5 +63,29 @@ public class GameService implements IGameService {
 
         log.debug("Adding deck {} contents to game {}", deckId, gameId);
         game.getDeck().addAll(deck.getCards());
+    }
+
+    @Override
+    public void shuffleDeck(UUID gameId) {
+        var game = getGame(gameId);
+        var deck = game.getDeck();
+        var deckArray = deck.toArray(new Card[0]);
+        shuffle(deckArray);
+
+        game.setDeck(Arrays.stream(deckArray).collect(Collectors.toCollection(LinkedList::new)));
+    }
+
+    public static void shuffle(Card[] array) {
+        var random = new Random();
+        int count = array.length;
+        for (int i = count; i > 1; i--) {
+            swap(array, i - 1, random.nextInt(i));
+        }
+    }
+
+    private static void swap(Card[] array, int i, int j) {
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
 }

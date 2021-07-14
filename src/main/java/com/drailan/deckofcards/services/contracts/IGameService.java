@@ -15,4 +15,6 @@ public interface IGameService {
     Game getGame(UUID gameId);
 
     void addDeck(UUID gameId, UUID deckId);
+
+    void shuffleDeck(UUID gameId);
 }

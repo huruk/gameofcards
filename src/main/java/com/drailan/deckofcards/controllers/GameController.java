@@ -52,6 +52,14 @@ public class GameController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("{gameId}/deck/shuffle")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity shuffleDeck(@PathVariable UUID gameId) {
+        gameService.shuffleDeck(gameId);
+
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("{gameId}/deck")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<DeckResponse> getDeck(@PathVariable UUID gameId) {
@@ -60,7 +68,7 @@ public class GameController {
         return ResponseEntity.ok(new DeckResponse(cards));
     }
 
-    @DeleteMapping("{gameId")
+    @DeleteMapping("{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity deleteGame(@PathVariable UUID gameId) {
         gameService.deleteGame(gameId);

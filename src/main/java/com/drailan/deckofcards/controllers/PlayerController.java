@@ -4,6 +4,7 @@ import com.drailan.deckofcards.entities.Card;
 import com.drailan.deckofcards.entities.Game;
 import com.drailan.deckofcards.entities.Player;
 import com.drailan.deckofcards.models.DealCardsRequest;
+import com.drailan.deckofcards.models.PlayerInfoResponse;
 import com.drailan.deckofcards.services.contracts.IPlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class PlayerController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Player>> getPlayers(@PathVariable UUID gameId) {
+    public ResponseEntity<List<PlayerInfoResponse>> getPlayers(@PathVariable UUID gameId) {
         var players =  playerService.getPlayers(gameId);
         if(players.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -36,6 +37,7 @@ public class PlayerController {
         var sortedPlayers = players
                 .stream()
                 .sorted(Comparator.comparingInt(Player::getTotalCardValue))
+                .map(player -> new PlayerInfoResponse(player.getId(), player.getTotalCardValue()))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(sortedPlayers);
