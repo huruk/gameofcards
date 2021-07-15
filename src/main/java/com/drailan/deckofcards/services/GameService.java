@@ -75,7 +75,7 @@ public class GameService implements IGameService {
         game.setDeck(Arrays.stream(deckArray).collect(Collectors.toCollection(LinkedList::new)));
     }
 
-    public static void shuffle(Card[] array) {
+    private static void shuffle(Card[] array) {
         var random = new Random();
         int count = array.length;
         for (int i = count; i > 1; i--) {

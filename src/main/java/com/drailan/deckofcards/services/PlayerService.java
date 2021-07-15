@@ -61,12 +61,13 @@ public class PlayerService implements IPlayerService {
             return;
         }
 
-        var targetCards = deck.subList(0, numberOfCards);
+        var cardsToRemove = Math.min(numberOfCards, deck.size());
+        var targetCards = deck.subList(0, cardsToRemove);
 
         var targetPlayer = getPlayer(gameId, playerId);
         targetPlayer.getCards().addAll(targetCards);
         targetCards.clear();
 
-        log.debug("Retrieved cards {} added it to player {}", numberOfCards, targetPlayer.getId());
+        log.debug("Retrieved {} cards and added them to player {}", cardsToRemove, targetPlayer.getId());
     }
 }
