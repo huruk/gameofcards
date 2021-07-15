@@ -1,0 +1,419 @@
+{
+	"info": {
+		"_postman_id": "52e34253-4719-40c2-b04d-55cb4000d321",
+		"name": "CardGame",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create deck",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/deck",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"deck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get deck by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/deck/:deckId",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"deck",
+						":deckId"
+					],
+					"variable": [
+						{
+							"key": "deckId",
+							"value": "{{deckId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create game",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/game",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get game by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/game/:gameId",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"game",
+						":gameId"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add deck to game",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"deckId\": \"{{deckId}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/game/:gameId/deck",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"game",
+						":gameId",
+						"deck"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete game",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/game/:gameId",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"game",
+						":gameId"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get players",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/game/:gameId/players",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"game",
+						":gameId",
+						"players"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get player",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/game/:gameId/players/:playerId",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"game",
+						":gameId",
+						"players",
+						":playerId"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						},
+						{
+							"key": "playerId",
+							"value": "d2be1cc1-dcff-45f7-92cd-4afcaaa2391a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add player to game",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/game/:gameId/players",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"game",
+						":gameId",
+						"players"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete player",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/game/:gameId/players/:playerId",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"game",
+						":gameId",
+						"players",
+						":playerId"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						},
+						{
+							"key": "playerId",
+							"value": "23c471b7-d8a6-467e-9348-ab97c79f88aa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deal cards to player",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"numberOfCards\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/game/:gameId/players/:playerId/deal",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"game",
+						":gameId",
+						"players",
+						":playerId",
+						"deal"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						},
+						{
+							"key": "playerId",
+							"value": "d2be1cc1-dcff-45f7-92cd-4afcaaa2391a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  game deck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/game/:gameId/deck",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"game",
+						":gameId",
+						"deck"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shuffle deck",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/game/:gameId/deck/shuffle",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"game",
+						":gameId",
+						"deck",
+						"shuffle"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "deckId",
+			"value": "8a488b75-154f-4525-b6d9-31f547b8e668"
+		},
+		{
+			"key": "gameId",
+			"value": "857bf502-2009-4b46-92a4-c7e3e773cdc3"
+		}
+	]
+}
